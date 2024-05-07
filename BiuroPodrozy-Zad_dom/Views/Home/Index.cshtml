@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@using BiuroPodrozy_Zad_dom.ViewModels
+@model IEnumerable<TourDetailsViewModel>
+
+<div class="text-center main">
+    <h1 class="display-4">Witaj w naszym biurze podróży!</h1>
+    <h2>Zapoznaj się z naszą ofertą!</h2>
+    <ul style="list-style:none">
+        @foreach(var tour in Model)
+        {
+            
+            <div class="card" style="width: 16.5rem;">
+                <img src=@tour.Photo alt="Zdjęcie oferty" class="img_oferty" />
+                <div>
+                    <h5 class="card-title">@tour.Country - @tour.City</h5>
+                    <p class="card-text">@tour.Description</p>
+            <a asp-action="Details" asp-controller="Home" asp-route-id="@tour.Id" class="btn btn-primary">Zobacz więcej</a>
+                </div>
+            </div>
+        }
+    </ul>
+</div>

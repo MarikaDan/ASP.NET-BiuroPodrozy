@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Strona podróży";
+}
+@using BiuroPodrozy_Zad_dom.ViewModels
+@model TourDetailsViewModel
+
+<div class="text-center">
+    <h1 class="display-4">Szczegóły dotyczące wycieczki</h1>
+    <h2>@Model.Country - @Model.City</h2>
+    <h5>@Model.Description</h5>
+    <p>Cena na osobę: @Model.PricePerPerson</p>
+    <p>Liczba dni/liczba nocy: @Model.NumberOfDays</p>
+</div>

@@ -1,0 +1,56 @@
+html {
+    font-size: 14px;
+    background-color: lightpink;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 2rem;
+}
+.main{
+    height:75vh;  
+}
+body {
+    background-image: radial-gradient(pink, aliceblue );
+}
+.navbar, .footer {
+    background-color:lightpink;
+}
+
+li, a {
+    padding: 10px;
+}
+ul {
+    align-items: center;
+    float: left;
+    display: grid;
+    gap: 10px;
+    grid-template-areas: 'myArea myArea myArea myArea';
+}
+.img_oferty {
+    height: 7em;
+
+}
+.card{
+    height:17em;
+}
+.kulebek {
+    grid-area: myArea;
+    float: left;
+    display: flex;
+
+}
+h2{
+    margin-bottom:3vh;
+}

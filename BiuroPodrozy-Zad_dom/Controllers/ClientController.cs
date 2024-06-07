@@ -24,12 +24,12 @@ namespace BiuroPodrozy_Zad_dom.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
                 return NotFound();
 
-            var result = _clientService.GetById(id.Value);
+            var result = _clientService.GetById(id);
             return View(result);
         }
 
@@ -56,18 +56,18 @@ namespace BiuroPodrozy_Zad_dom.Controllers
 
         }
         [HttpGet]
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(string? id)
         {
             if (id == null) return NotFound();
 
-            var model = _clientService.GetById(id.Value);
+            var model = _clientService.GetById(id);
             return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Email,PhoneNumber")] ClientViewModel clientViewModel)
+        public async Task<ActionResult> Edit(string id, [Bind("ID,FirstName,LastName,Email,PhoneNumber")] ClientViewModel clientViewModel)
         {
-            if (id != clientViewModel.ID) return NotFound();
+            if (id != clientViewModel.Id) return NotFound();
 
             var result = await _validator.ValidateAsync(clientViewModel);
 
@@ -84,7 +84,7 @@ namespace BiuroPodrozy_Zad_dom.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_clientService.Exists(clientViewModel.ID))
+                if (!_clientService.Exists(clientViewModel.Id))
                 {
                     return NotFound();
                 }
@@ -94,16 +94,16 @@ namespace BiuroPodrozy_Zad_dom.Controllers
             return RedirectToAction("Index", "Client");
         }
         [HttpGet]
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(string? id)
         {
             if (id == null) return NotFound();
 
-            var model = _clientService.GetById(id.Value);
+            var model = _clientService.GetById(id);
             return View(model);
         }
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteConfirmed(string id)
         {
             _clientService.Delete(id);
             return RedirectToAction("Index", "Client");

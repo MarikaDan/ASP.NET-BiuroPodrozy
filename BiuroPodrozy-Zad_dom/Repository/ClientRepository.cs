@@ -13,7 +13,7 @@ namespace BiuroPodrozy_Zad_dom.Repository
         {
             return _context.Clients;
         }
-        public Client GetById(int ClientId)
+        public Client GetById(string ClientId)
         {
             return _context.Clients.Find(ClientId);
         }
@@ -25,7 +25,7 @@ namespace BiuroPodrozy_Zad_dom.Repository
         {
             _context.Entry(client).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
         }
-        public void Delete(int ClientId)
+        public void Delete(string ClientId)
         {
             Client client = _context.Clients.Find(ClientId);
             if (client != null)
@@ -38,7 +38,7 @@ namespace BiuroPodrozy_Zad_dom.Repository
             _context.SaveChanges();
         }
 
-        public bool Exists(int id) => _context.Clients.Any(c => c.ID == id);
+        public bool Exists(string id) => _context.Clients.Any(c => c.Id == id);
         
 
     }

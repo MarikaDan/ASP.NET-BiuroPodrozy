@@ -1,11 +1,12 @@
 using BiuroPodrozy_Zad_dom.Data;
 using Microsoft.EntityFrameworkCore;
 using BiuroPodrozy_Zad_dom.Repository;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
 using BiuroPodrozy_Zad_dom.Service;
 using FluentValidation;
+using Microsoft.AspNetCore.Identity;
+using BiuroPodrozy_Zad_dom.Models;
+using Trips.DAL.Infrastructure;
+
 
 namespace BiuroPodrozy_Zad_dom
 {
@@ -19,6 +20,11 @@ namespace BiuroPodrozy_Zad_dom
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<ReservationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddRazorPages();
+
+            builder.Services.AddIdentity<Client, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true).AddDefaultUI()
+                .AddRoles<IdentityRole>().AddEntityFrameworkStores<ReservationContext>().AddDefaultTokenProviders();
+
             builder.Services.AddScoped<IClientRepository, ClientRepository>();
             builder.Services.AddScoped<ITourRepository, TourRepository>();
             builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
@@ -43,6 +49,14 @@ namespace BiuroPodrozy_Zad_dom
                 var scope = app.Services.CreateScope();
                 var db = scope.ServiceProvider.GetRequiredService<ReservationContext>();
                 DbInitializer.Initialize(db);
+
+
+                var startup = new Startup(app.Configuration);
+
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Client>>();
+
+                startup.Configure(roleManager, userManager);
             }
             catch (Exception ex)
             {
@@ -60,6 +74,8 @@ namespace BiuroPodrozy_Zad_dom
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapRazorPages();
 
             app.Run();
         }

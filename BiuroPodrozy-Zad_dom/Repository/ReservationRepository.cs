@@ -38,7 +38,7 @@ namespace BiuroPodrozy_Zad_dom.Repository
             _context.SaveChanges();
         }
 
-        public bool Exists(int id) => _context.Clients.Any(c => c.ID == id);
+        public bool Exists(int id) => _context.Reservations.Any(c => c.ReservationID == id);
 
     }
 }

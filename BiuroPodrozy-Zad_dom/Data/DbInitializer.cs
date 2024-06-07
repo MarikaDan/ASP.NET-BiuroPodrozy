@@ -37,10 +37,10 @@ namespace BiuroPodrozy_Zad_dom.Data
             context.SaveChanges();
             var reservations = new Reservation[]
             {
-                new Reservation{ClientID=1,TourID=1, TotalPrice=2000, PaymentDate=DateTime.Parse("06.25.2020"), From=DateTime.Parse("08.20.2020"), To=DateTime.Parse("08.30.2020")},
-                new Reservation{ClientID=2,TourID=4, TotalPrice=3000, PaymentDate=DateTime.Parse("03.12.2020"), From=DateTime.Parse("09.15.2020"), To=DateTime.Parse("09.30.2020")},
-                new Reservation{ClientID=3, TourID=2, TotalPrice=4500, PaymentDate=DateTime.Parse("01.01.2020"), From=DateTime.Parse("06.01.2020"), To=DateTime.Parse("06.08.2020")},
-                new Reservation{ClientID=4,TourID=3, TotalPrice=4000, PaymentDate=DateTime.Parse("02.07.2020"), From=DateTime.Parse("07.02.2020"), To=DateTime.Parse("07.12.2020")}
+                new Reservation{ClientId="1",TourID=1, TotalPrice=2000, PaymentDate=DateTime.Parse("06.25.2020"), From=DateTime.Parse("08.20.2020"), To=DateTime.Parse("08.30.2020")},
+                new Reservation{ClientId="2",TourID=4, TotalPrice=3000, PaymentDate=DateTime.Parse("03.12.2020"), From=DateTime.Parse("09.15.2020"), To=DateTime.Parse("09.30.2020")},
+                new Reservation{ClientId="3", TourID=2, TotalPrice=4500, PaymentDate=DateTime.Parse("01.01.2020"), From=DateTime.Parse("06.01.2020"), To=DateTime.Parse("06.08.2020")},
+                new Reservation{ClientId="4",TourID=3, TotalPrice=4000, PaymentDate=DateTime.Parse("02.07.2020"), From=DateTime.Parse("07.02.2020"), To=DateTime.Parse("07.12.2020")}
             };
             foreach(Reservation r in reservations ) 
             {

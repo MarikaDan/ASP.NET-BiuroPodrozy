@@ -21,17 +21,17 @@ namespace BiuroPodrozy_Zad_dom.Service
             var results = _mapper.Map<IEnumerable<ClientViewModel>>(clients);
             return results;
         }
-        public ClientViewModel GetById(int id)
+        public ClientViewModel GetById(string id)
         {
             var client = _clientRepository.GetById(id);
             var result = _mapper.Map<ClientViewModel>(client);
             return result;
         }
-        public bool Exists(int id)
+        public bool Exists(string id)
         {
             return _clientRepository.Exists(id);
         }
-        public void Delete(int id) 
+        public void Delete(string id) 
         {
             _clientRepository.Delete(id);
             _clientRepository.Save();

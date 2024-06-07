@@ -5,6 +5,7 @@ using BiuroPodrozy_Zad_dom.Models;
 using BiuroPodrozy_Zad_dom.Service;
 using BiuroPodrozy_Zad_dom.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BiuroPodrozy_Zad_dom.Controllers
 {
@@ -16,17 +17,24 @@ namespace BiuroPodrozy_Zad_dom.Controllers
         {
             _reservationService = reservationService;
         }
+
+
+        [Authorize(Roles = "Admin, User")]
         [HttpGet]
         public async Task<ActionResult> Index()
         {
             var model = _reservationService.GetAll();
             return View(model);
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
-        public ActionResult AddReservation()
+        public ActionResult Create()
         {
             return View();
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddReservation([Bind("ReservationID,TotalPrice,From,To,TourID,ClientID")] ReservationViewModel reservationViewModel)
@@ -37,6 +45,8 @@ namespace BiuroPodrozy_Zad_dom.Controllers
             return RedirectToAction("Index", "Reservation");
 
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult> EditReservation(int? reservationId)
         {
@@ -44,6 +54,8 @@ namespace BiuroPodrozy_Zad_dom.Controllers
             var model = _reservationService.GetById(reservationId.Value);
             return View(model);
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditReservation(int id, [Bind("ReservationID,TotalPrice,From,To,TourID,ClientID")] ReservationViewModel reservationViewModel)
@@ -65,6 +77,8 @@ namespace BiuroPodrozy_Zad_dom.Controllers
 
             return RedirectToAction("Index", "Reservation");
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult> DeleteReservation(int? reservationId)
         {
@@ -73,6 +87,8 @@ namespace BiuroPodrozy_Zad_dom.Controllers
             var model = _reservationService.GetById(reservationId.Value);
             return View(model);
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int reservationId)

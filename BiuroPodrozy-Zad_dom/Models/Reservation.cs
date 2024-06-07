@@ -8,7 +8,7 @@
         public DateTime From { get; set; }
         public DateTime To { get; set; }
         public int TourID { get; set; }
-        public int ClientID { get; set; }
+        public string ClientId { get; set; }
         public Tour Tour { get; set; }
         public Client Client { get; set; }
     }

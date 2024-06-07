@@ -5,6 +5,7 @@ using BiuroPodrozy_Zad_dom.Models;
 using BiuroPodrozy_Zad_dom.Service;
 using BiuroPodrozy_Zad_dom.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BiuroPodrozy_Zad_dom.Controllers
 {
@@ -16,17 +17,25 @@ namespace BiuroPodrozy_Zad_dom.Controllers
         {
             _tourService =  tourService;
         }
+
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult> Index()
         {
             var model = _tourService.GetAll();
             return View(model);
         }
+
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult AddTour()
         {
             return View();
         }
+
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddTour([Bind("ID,Country,City,PricePerPerson,NumberOfDays,Photo,Description")] TourViewModel tourViewModel)
@@ -37,6 +46,8 @@ namespace BiuroPodrozy_Zad_dom.Controllers
             return RedirectToAction("Index", "Tour");
 
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult> EditTour(int? tourId)
         {
@@ -44,6 +55,8 @@ namespace BiuroPodrozy_Zad_dom.Controllers
             var model = _tourService.GetById(tourId.Value);
             return View(model);
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditTour(int id, [Bind("ID,Country,City,PricePerPerson,NumberOfDays,Photo,Description")] TourViewModel tourViewModel)
@@ -65,6 +78,8 @@ namespace BiuroPodrozy_Zad_dom.Controllers
 
             return RedirectToAction("Index", "Tour");
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult> DeleteTour(int? tourId)
         {
@@ -73,6 +88,8 @@ namespace BiuroPodrozy_Zad_dom.Controllers
             var model = _tourService.GetById(tourId.Value);
             return View(model);
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Delete(int tourId)

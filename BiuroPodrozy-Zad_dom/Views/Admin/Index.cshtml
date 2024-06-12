@@ -1,0 +1,137 @@
+﻿@model BiuroPodrozy_Zad_dom.ViewModels.AdminPanelViewModel;
+
+@{
+	ViewBag.Title = "Panel Administratora";
+	Layout = "_Layout";
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4 mt-3">
+	<h1 class="h3 mb-0 text-gray-800">Panel Administratora</h1>
+</div>
+
+<!-- Cards -->
+<div class="row">
+
+	<!-- Klienci Card -->
+	<div class="col-xl-3 col-md-6 mb-4">
+		<div class="card border-left-primary shadow h-100 py-2">
+			<div class="card-body">
+				<div class="row no-gutters align-items-center">
+					<div class="col mr-2">
+						<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+							Zarejestrowani użytkownicy
+							<a asp-controller="Customers" asp-action="Index"><i class="fa-solid fa-ellipsis ms-1"></i></a>
+						</div>
+						<div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ClientsCount</div>
+					</div>
+					<div class="col-auto">
+						<i class="fas fa-users fa-3x text-gray-300"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Wycieczki Card -->
+	<div class="col-xl-3 col-md-6 mb-4">
+		<div class="card border-left-success shadow h-100 py-2">
+			<div class="card-body">
+				<div class="row no-gutters align-items-center">
+					<div class="col mr-2">
+						<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+							Wycieczki
+							<a asp-controller="Trips" asp-action="Index"><i class="fa-solid fa-ellipsis ms-1"></i></a>
+						</div>
+						<div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ToursCount</div>
+					</div>
+					<div class="col-auto">
+						<i class="fa-solid fa-briefcase fa-3x text-gray-300"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Rezerwacje Card -->
+	<div class="col-xl-3 col-md-6 mb-4">
+		<div class="card border-left-info shadow h-100 py-2">
+			<div class="card-body">
+				<div class="row no-gutters align-items-center">
+					<div class="col mr-2">
+						<div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+							Rezerwacje
+							<a asp-controller="Reservations" asp-action="Index"><i class="fa-solid fa-ellipsis ms-1"></i></a>
+						</div>
+						<div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ReservationsCount</div>
+					</div>
+					<div class="col-auto">
+						<i class="fas fa-clipboard-list fa-3x text-gray-300"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row mt-4">
+
+	<div class="col-lg-7">
+		<div class="card shadow mb-1 h-100">
+			<div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">Aktualne wycieczki</h6>
+			</div>
+			<div class="card-body">
+				<table id="upcomingTripsTable" class="display">
+					<thead>
+						<tr>
+							<th>Kraj</th>
+							<th>Miasto</th>
+							<th>Cena na osobę</th>
+							<th>Liczba dni</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						@foreach (var trip in Model.Tours)
+						{
+							<tr>
+								<td>@trip.Country</td>
+								<td>@trip.City</td>
+								<td>@trip.PricePerPerson</td>
+								<td>@trip.NumberOfDays</td>
+							</tr>
+						}
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+@section Scripts {
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+	<script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+
+	<script>
+
+
+		const doughnutConfig = {
+			type: 'doughnut',
+			data: doughnutData,
+		};
+
+
+		const config = {
+			type: 'scatter',
+			data: data,
+			options: {
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		};
+
+	</script>
+}
